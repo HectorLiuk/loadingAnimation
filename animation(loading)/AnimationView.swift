@@ -50,12 +50,10 @@ class AnimationView: UIView {
         circleLayer.expend()
        //延迟执行两种方法 
         //1 gcd
-//        let time = dispatch_time(DISPATCH_TIME_NOW,Int64(0.3 * Double(NSEC_PER_SEC)))
-//        dispatch_after(time, dispatch_get_main_queue()) {
-            //防止循环引用
-//            [unowned self]  in
-//            self.circleLayer.wobblGroupAnimation()
-//        }
+        let time = dispatch_time(DISPATCH_TIME_NOW,Int64(0.3 * Double(NSEC_PER_SEC)))
+        dispatch_after(time, dispatch_get_main_queue()) {[unowned self]  in//防止循环引用
+            self.circleLayer.wobblGroupAnimation()
+        }
         //2 NSTimer
         NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: #selector(wobbleCircleLayer), userInfo: nil, repeats: false)
     }
